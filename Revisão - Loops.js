@@ -1,3 +1,8 @@
+##Revisão
+
+##Perguntas 
+### Erros que cometi
+
 // Estruturas de Repetição ajudam em vários casos onde é preciso revisitar uma lista várias vezes e fazer multiplos procedimentos
 
 for (let index = 0 ; index < n ; index ++){
@@ -9,7 +14,7 @@ for (let index = 0 ; index < n ; index ++){
 
 const cars = ['ferrare','fiat','fusca','porshe'];
 
-for(let n=0;n<cars.length;n++){
+for(let n=0 ;n<cars.length;n++){
   console.log(cars[n])
 }
 
@@ -26,7 +31,7 @@ cars.forEach(function(car,index){ // aqui podemos usar o index e o let car of ca
   console.log(index);
 })
 
-//while loop será executado enquanto uam condição permanecer verdadeira.
+//while loop será executado enquanto uma condição permanecer verdadeira.
 
 let index = 0;
 while (index < 9){
