@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador Online</title>
+    <script>
+      let valor = 0;
+
+const contador = document.getElementById('contador');
+const btnPlus = document.getElementById('incrementar');
+const btnMinus = document.getElementById('decrementar');
+const btnReset = document.getElementById('resetar');
+const btnDefinirValor = document.getElementById('definirValor');
+const valorUsuario = document.getElementById('valorUsuario');
+
+atualizarTela();
+
+function atualizarTela (){
+    contador.textContent = valor;
+    if (valor < 0){
+        contador.style.color = 'red';
+    }else if(valor > 0){
+        contador.style.color = 'green';
+    }else{
+        contador.style.color = 'black';
+    } 
+}
+
+btnDefinirValor.addEventListener("click",function(){
+    valor = Number(valorUsuario.value);
+    atualizarTela();
+    valorUsuario.value= "";
+});
+
+btnPlus.addEventListener("click",function(){
+    valor++;
+    atualizarTela();
+});
+
+btnMinus.addEventListener("click",function(){
+    valor--;
+    atualizarTela();
+});
+
+btnReset.addEventListener("click", function(){
+    valor = 0;
+    atualizarTela();
+});
+    </script>
+</head>
+<body>
+    <div>
+  <h1 id="contador">0</h1>
+  <input type="number" id="valorUsuario">
+  <button id="definirValor">Definir Valor</button>
+  <button id="incrementar">+</button>
+  <button id="decrementar">-</button>
+  <button id="resetar">Reset</button>
+
+</div>
+<script src="contador.js"></script>
+</body>
+</html>
