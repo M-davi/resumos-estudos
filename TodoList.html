@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body{background-color:pink}
+        img{border-radius: 60%}
+        button{border-radius: 20px}
+        input{border-radius: 20px}
+        span{padding: 20px;}
+        ul{list-style: none;}
+        #centro{text-align: center;border-top: 100px;padding-top: 100px;}
+    </style>
+</head>
+<body>
+<div id="centro">
+    <input type="text" id="entradaTarefas">
+    <button id="addTask">Adicionar</button>
+    <div>
+        <ul id="listaTarefas"></ul>
+    </div>
+</div>  
+    <script>
+        //Falta documenta para jogar no github
+//entender cada parte do código.
+
+const btnAdd = document.getElementById('addTask');
+const entradaTarefas = document.getElementById('entradaTarefas');
+const listaTarefas = document.getElementById('listaTarefas');
+const dados = localStorage.getItem('tasks');
+const tasks = dados ? JSON.parse(dados): [];
+
+console.log(entradaTarefas.value);
+entradaTarefas.addEventListener("keydown",function(event){
+    if (event.key === "Enter"){
+        btnAdd.click();
+    }
+});
+
+function salvarTasks(){
+    localStorage.setItem("tasks",JSON.stringify(tasks));
+}
+
+btnAdd.addEventListener("click",function(){
+    const valor = entradaTarefas.value.trim();
+    if (tasks.some(tarefas => tarefas.texto === valor)){
+        console.log('Tarefa já adicionada#');
+        alert('Essa tarefa já existe.')
+    }else{
+        tasks.push({
+            texto: valor,
+            concluido:false
+        });
+        entradaTarefas.value='';
+        salvarTasks();
+        Renderizador(tasks);  
+    }
+});
+
+
+
+function Renderizador(tasks){
+    listaTarefas.innerHTML=''; //limpa a lista 
+    for (let i=0; i < tasks.length;i++){
+        const li = document.createElement('li');
+
+        const checkBox = document.createElement('input');
+        checkBox.type = "checkbox";
+        checkBox.checked = tasks[i].concluido;  
+        checkBox.addEventListener("change",(event)=>{
+            console.log('checado');
+            tasks[i].concluido = event.target.checked;
+            Renderizador(tasks);
+            salvarTasks();
+            
+        });
+    
+        const spanText = document.createElement('span');
+        spanText.textContent = tasks[i].texto;
+        if (tasks[i].concluido){
+                spanText.style.textDecoration = "line-through";
+            }else{
+                spanText.style.textDecoration = 'none';
+                
+            }
+        const btnRemove = document.createElement('button');
+        btnRemove.textContent = "remover tarefa";
+
+        btnRemove.addEventListener('click',function(){
+            console.log('tarefa removida'); 
+            tasks.splice(i,1);
+            Renderizador(tasks);
+            salvarTasks();// chamei a atualização dentro dela mesma, mas ela ocorre depois do for já ter sido feito, ou seja ela tecnica não é feita enquanto o loop está rolando.
+        });
+        
+
+        li.appendChild(checkBox);
+        li.appendChild(spanText);
+        li.appendChild(btnRemove);
+        listaTarefas.appendChild(li);
+    }
+}
+//adicionar tasks dentro da lista
+Renderizador(tasks);
+
+    </script>
+</body>
+</html>
