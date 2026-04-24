@@ -84,10 +84,10 @@ function startGame(){
     }
 
     generateFood();
-    gameInterval = setInterval(gameLoop, 500);
+    gameInterval = setInterval(gameLoop, 100);
 }
 
-document.addEventListener('keydown', e =>{
+document.addEventListener('keydown', e => {
     switch (e.key){
         case 'ArrowUp':
             if (dy === 0) {dx = 0; dy = -1;}
