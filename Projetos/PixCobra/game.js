@@ -2,8 +2,8 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 const scoreElement = document.getElementById("score");
 const restartButton = document.getElementById("restartButton");
-
 const gridSize = 20;
+
 let snake = [];
 let food = {}; // posição da comida
 let dx = 1, dy = 0; // posição do jogador
@@ -12,13 +12,17 @@ let gameInterval;
 let isGameOver = false;
 
 
-
+//Cria uma posição aleatória para a comida
+//Math.random() gera um número aleatório entre 0 e 1, multiplicamos pelo número de células disponíveis no canvas (canvas.width / gridSize) para obter uma posição válida. Math.floor arredonda para baixo, garantindo que a posição seja um número inteiro.
+//Math.floor 
 function generateFood() {
     food = {
         x:Math.floor(Math.random()*(canvas.width / gridSize)),
         y:Math.floor(Math.random()*(canvas.height /gridSize))
     }
 }
+
+
  //limpar o canvas
 function draw(){
     ctx.clearRect(0,0,canvas.width,canvas.height)
